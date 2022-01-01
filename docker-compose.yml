@@ -1,0 +1,30 @@
+version: '3.9'
+services: 
+  gk45098-frontend:
+    build: ./docker/node
+    volumes:
+      - ./gk45098-frontend:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - gk45098-backend
+  
+  gk45098-backend:
+    build: ./docker/java
+    volumes:
+      - ./gk45098-backend:/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  
+  db:
+    image: postgis/postgis:13-3.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
