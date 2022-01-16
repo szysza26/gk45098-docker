@@ -1,8 +1,7 @@
 FROM openjdk:11
 
-WORKDIR /app
-
 RUN apt-get update && apt-get install -y maven
-RUN mvn package
+COPY ./gk45098-backend /app
+RUN cd /app && mvn -Dmaven.test.skip package
 
-ENTRYPOINT ["java","-jar","target/gk45098-backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/app/target/gk45098-backend-0.0.1-SNAPSHOT.jar"]

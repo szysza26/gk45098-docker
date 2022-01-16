@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 services: 
   gk45098-frontend:
     build: ./docker/node
@@ -10,9 +10,9 @@ services:
       - gk45098-backend
   
   gk45098-backend:
-    build: ./docker/java
-    volumes:
-      - ./gk45098-backend:/app
+    build: 
+      context: .
+      dockerfile: docker/java/Dockerfile
     ports:
       - 8080:8080
     depends_on:
