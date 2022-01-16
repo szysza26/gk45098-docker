@@ -1,5 +1,8 @@
-FROM maven:3.8.4-jdk-11
+FROM openjdk:11
 
 WORKDIR /app
 
-CMD tail -f /dev/null
+RUN apt-get update && apt-get install -y maven
+RUN mvn package
+
+ENTRYPOINT ["java","-jar","target/gk45098-backend-0.0.1-SNAPSHOT.jar"]
